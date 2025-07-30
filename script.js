@@ -87,5 +87,40 @@ function showError(message) {
     display.classList.remove("error-animate");
   }, 1000);
 }
+document.addEventListener("keydown", (event) => {
+  const key = event.key;
 
+  const validNumbers = "0123456789";
+  const validOperators = "+-*/.";
+  const sciKeys = {
+    s: "sin",
+    c: "cos",
+    t: "tan",
+    l: "log",
+    r: "√",
+    p: "π",
+    e: "e",
+    "^": "^"
+  };
+
+  if (validNumbers.includes(key)) {
+    if (display.textContent === "0" || display.textContent === "Error") {
+      display.textContent = key;
+    } else {
+      display.textContent += key;
+    }
+  } else if (validOperators.includes(key)) {
+    display.textContent += key;
+  } else if (key === "Enter") {
+    document.querySelector(".equal").click();
+  } else if (key === "Backspace") {
+    document.getElementById("del").click();
+  } else if (key === "Escape") {
+    document.getElementById("clear").click();
+  } else if (sciKeys[key]) {
+    // Simulate scientific function button press
+    const btn = Array.from(document.querySelectorAll(".sci")).find(b => b.textContent === sciKeys[key]);
+    if (btn) btn.click();
+  }
+});
 
